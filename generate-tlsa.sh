@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -lt 1 ]; then
-	echo "Usage: $1 host[:port] [host[:port]] [...]"
+	echo "Usage: $0 host[:port] [host[:port]] [...]"
 	echo "Default port is 443 (https)"
 	exit 1
 fi
