@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ "$#" -lt 1 ]; then
-	echo "Usage: $0 host[:port] [host[:port]] [...]"
-	echo "Default port is 443 (https)"
+	>&2 echo "Usage: $0 host[:port] [host[:port]] [...]"
+	>&2 echo "Default port is 443 (https)"
 	exit 1
 fi
 
@@ -21,16 +21,16 @@ do
 	TLSA="_$PORT._tcp.$HOST. "$'\t\t'"IN TLSA "$'\t'"3 0 1 $SHA256HASH"$'\n'
 	TLSA_ALL=$TLSA_ALL$TLSA
 	CERT=$(openssl s_client -connect $HOST:$PORT -servername $HOST -showcerts </dev/null 2>/dev/null | openssl x509 -noout -text | grep "Subject:" | cut -c 9-)
-	echo "Info: host $HOST"
-	echo "Info: port $PORT"
-	echo "Info: certificate found: $CERT"
-	echo "TLSA record:"
-	echo "$TLSA"
-	echo ""
+	>&2 echo "Info: host $HOST"
+	>&2 echo "Info: port $PORT"
+	>&2 echo "Info: certificate found: $CERT"
+	>&2 echo "TLSA record:"
+	>&2 echo "$TLSA"
+	>&2 echo ""
 done
 
-echo "TLSA records summarized:"
+>&2 echo "TLSA records summarized:"
 echo "$TLSA_ALL"
-echo ""
+>&2 echo ""
 
 exit 0
