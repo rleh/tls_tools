@@ -27,7 +27,7 @@ do
 	fi
 	>&2 echo "Info: port $PORT"
 	SHA256HASH=$(openssl s_client -connect $HOST:$PORT $STARTTLS -servername $HOST -showcerts </dev/null 2>/dev/null | openssl x509 -noout -fingerprint -sha256 | tr -d : | cut -c 20-)
-	TLSA="_$PORT._tcp.$HOST. "$'\t\t'"IN TLSA "$'\t'"3 0 1 $SHA256HASH"$'\n'
+	TLSA="_$PORT._tcp.$HOST."$'\t\t'"IN TLSA"$'\t'"3 0 1 $SHA256HASH"$'\n'
 	TLSA_ALL=$TLSA_ALL$TLSA
 	CERT=$(openssl s_client -connect $HOST:$PORT $STARTTLS -servername $HOST -showcerts </dev/null 2>/dev/null | openssl x509 -noout -text | grep "Subject:" | cut -c 9-)
 	>&2 echo "Info: certificate found: $CERT"
