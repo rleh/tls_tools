@@ -28,3 +28,12 @@ Servers using SNI (*Server Name Indication* is a TLS extension to allow multiple
 ```
 The default port is 443 (https).
 
+
+## Bonus
+
+### Server with TLSA records and DNSSEC
+The scripts `letsencrypt-renew_tlsa_dnssec.sh` and `bind_dnssec_resign.sh` can be used on servers with TLS enabled services (like HTTPS, IMAPS or SMTPS) with self-hosted primary bind nameserver.
+
+Both script must be adapted to your local DNS zones and subdomains with TLSA records.
+
+`letsencrypt-renew_tlsa_dnssec.sh` renews certs from Let’s Encrypt, restarts (or reloads) the affected services, (re)generates TLSA records for the DNS zones and re-signs the DNSSEC secured zones the pubish the new TLSA records.
